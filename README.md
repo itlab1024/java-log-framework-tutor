@@ -141,7 +141,7 @@ public class Main {
 
 ## 配置文件
 
-logback支持使用xml的方式配置日志的相关信息，需要在classpath下（maven项目的resources下），创建`logback.xml文件`。
+logback支持使用xml的方式配置日志的相关信息，需要在classpath下（maven项目的resources下），创建`logback.xml`文件。
 
 ```xml
 <configuration  xmlns="http://ch.qos.logback/xml/ns/logback"
