@@ -65,7 +65,6 @@ public class Main {
         logger.debug("debug");
         logger.info("info");
         logger.warn("warn");
-        logger.trace("trace");
         logger.error("error");
     }
 }
@@ -129,7 +128,6 @@ public class Main {
         logger.debug("debug");
         logger.info("info");
         logger.warn("warn");
-        logger.trace("trace");
         logger.error("error");
     }
 }
