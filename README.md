@@ -285,7 +285,7 @@ log4j.appender.stdout.layout.ConversionPattern=%5p [%t] (%F:%L) - %m%n
 
 这是JDK自带的日志框架，官方地址是：[Java Logging Overview (oracle.com)](https://docs.oracle.com/en/java/javase/17/core/java-logging-overview.html#GUID-B83B652C-17EA-48D9-93D2-563AE1FF8EDA)
 
-示例项目：[slf4j-jul](https://github.com/itlab1024/java-log-framework-tutorial/tree/main/slf4j-jul)
+示例项目：[slf4j-jul](https://github.com/itlab1024/java-log-framework-tutorial/tree/main/sfl4j-jul)
 
 ## 依赖说明
 
