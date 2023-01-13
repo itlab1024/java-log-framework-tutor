@@ -100,7 +100,7 @@ public class com.itlab1024.log.Main {
 
 示例项目：[slf4j-logback-classic](https://github.com/itlab1024/java-log-framework-tutorial/tree/main/slf4j-logback-classic)
 
-[官网地址]([Logback Home (qos.ch)](https://logback.qos.ch/))
+[官网地址](https://logback.qos.ch/)
 
 ## 依赖说明
 
