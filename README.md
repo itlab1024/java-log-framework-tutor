@@ -138,3 +138,35 @@ public class Main {
 ![image-20230113114827808](https://itlab1024-1256529903.cos.ap-beijing.myqcloud.com/202301131148890.png)
 
 可以看到能够正常打印日志信息。
+
+## 配置文件
+
+logback支持使用xml的方式配置日志的相关信息，需要在classpath下（maven项目的resources下），创建`logback.xml文件`。
+
+```xml
+<configuration  xmlns="http://ch.qos.logback/xml/ns/logback"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://ch.qos.logback/xml/ns/logback
+                https://raw.githubusercontent.com/enricopulatzo/logback-XSD/master/src/main/xsd/logback.xsd">
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>ITLab1024---%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} -%kvp- %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="debug">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
+```
+
+特别注意config的配置，此配置会让你在xml中编辑的时候，自动提示！！！，可以去看我的另一个博客[IDEA下Logback.xml自动提示功能配置 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/398558799)
+
+再次运行程序查看运行结果：
+
+![](https://itlab1024-1256529903.cos.ap-beijing.myqcloud.com/202301131209551.png)
+
+可以看到，配置文件已经生效。
