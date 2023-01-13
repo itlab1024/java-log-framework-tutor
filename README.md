@@ -40,7 +40,7 @@ Java的日志框架有很多，常用的有`log4j1.x`，`log4j2.x`，`logback`�
 # 未绑定实现
 未绑定实现肯定是不能使用的，也就是说只有`slf4j-api`的接口定义，没有具体地实现。
 
-示例项目：[slf4j-unbound](slf4j-unbound)
+示例项目：[slf4j-unbound](https://github.com/itlab1024/java-log-framework-tutorial/tree/main/slf4j-log4j2/slf4j-unbound)
 
 ## 依赖说明
 ```xml
@@ -197,7 +197,7 @@ logback支持使用xml的方式配置日志的相关信息，需要在classpath�
 
 `log4j`的`1.x`版本是一个通用版本，但是由于2022年的log4j漏洞原因，`slf4j-log4j`模块在`build`时，会自动重定向至`slf4j-reload4j`模块。也就是说如果想用`log4j`的话，就直接使用哦个`reload4j`吧。
 
-示例项目：[slf4j-reload4j](slf4j-reload4j)
+示例项目：[slf4j-reload4j](https://github.com/itlab1024/java-log-framework-tutorial/tree/main/slf4j-log4j2/slf4j-reload4j)
 
 [官网地址](https://reload4j.qos.ch/)
 
@@ -281,9 +281,11 @@ log4j.appender.stdout.layout.ConversionPattern=%5p [%t] (%F:%L) - %m%n
 
 日志正常输出。
 
-# 绑定juc（java.util.logging）
+# 绑定jul（java.util.logging）
 
 这是JDK自带的日志框架，官方地址是：[Java Logging Overview (oracle.com)](https://docs.oracle.com/en/java/javase/17/core/java-logging-overview.html#GUID-B83B652C-17EA-48D9-93D2-563AE1FF8EDA)
+
+示例项目：[slf4j-jul](https://github.com/itlab1024/java-log-framework-tutorial/tree/main/slf4j-log4j2/slf4j-jul)
 
 ## 依赖说明
 
@@ -417,6 +419,8 @@ java.util.logging.ConsoleHandler.formatter = java.util.logging.SimpleFormatter
 
 # 绑定slf4j-simple
 
+示例项目：[slf4j-simple](https://github.com/itlab1024/java-log-framework-tutorial/tree/main/slf4j-log4j2/slf4j-simple)
+
 ## 依赖说明
 
 只要引入`sfl4j-simple`即可，会自动下载`slf4j-api`依赖
@@ -503,6 +507,8 @@ org.slf4j.simpleLogger.showLogName=true
 `log4j2`并未在上图中展示，但是并不是说起不能与`slf4j-api`融合，相反，官方已经给了解决方案。
 
 [Log4j – Apache Log4j 2](https://logging.apache.org/log4j/2.x/)
+
+示例项目：[slf4j-log4j2](https://github.com/itlab1024/java-log-framework-tutorial/tree/main/slf4j-log4j2/slf4j-log4j2)
 
 ## 依赖说明
 
