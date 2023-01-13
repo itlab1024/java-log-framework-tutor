@@ -398,3 +398,83 @@ java.util.logging.ConsoleHandler.formatter = java.util.logging.SimpleFormatter
 # com.xyz.foo.level = SEVERE
 ```
 
+# 绑定slf4j-simple
+
+## 依赖说明
+
+只要引入`sfl4j-simple`即可，会自动下载`slf4j-api`依赖
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.itlab1024</groupId>
+    <artifactId>slf4j-simple</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.6</version>
+        </dependency>
+    </dependencies>
+
+</project>
+```
+
+依赖情况
+
+![image-20230113140203234](https://itlab1024-1256529903.cos.ap-beijing.myqcloud.com/202301131402325.png)
+
+## 测试类
+
+```java
+package com.itlab1024.log;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class Main {
+    public static final Logger logger = LoggerFactory.getLogger(Main.class);
+    public static void main(String[] args) {
+        logger.debug("debug");
+        logger.info("info");
+        logger.warn("warn");
+        logger.error("error");
+    }
+}
+```
+
+## 运行结果
+
+![image-20230113140715105](https://itlab1024-1256529903.cos.ap-beijing.myqcloud.com/202301131407171.png)
+
+未打印出来debug的日志，是因为默认的日志级别是`info`。
+
+## 配置文件
+
+配置文件名称是`simplelogger.properties`，比如配置如下配置文件。
+
+```properties
+org.slf4j.simpleLogger.defaultLogLevel=DEBUG
+org.slf4j.simpleLogger.showDateTime=true
+org.slf4j.simpleLogger.dateTimeFormat=yyyy-MM-dd HH:mm:ss
+org.slf4j.simpleLogger.showLogName=true
+```
+
+默认日志级别我修改为了DEBUG
+
+运行结果：
+
+![image-20230113141549920](https://itlab1024-1256529903.cos.ap-beijing.myqcloud.com/202301131415002.png)
+
+可以看到debug级别的日志被打印了出来。
