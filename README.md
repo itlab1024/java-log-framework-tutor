@@ -1,4 +1,13 @@
-# java日志框架讲解
+# Java日志框架讲解
+
+Java的日志框架有很多，常用的有`log4j1.x`，`log4j2.x`，`logback`，`jul`，`jcl`等等，这些框架如何使用？他们如何与`slf4j-api`搭配使用？不搭配`slf4j-api`能否单独使用？使用过程中需要注意哪些事项？
+
+实际开发中我们也会遇到很多问题，本篇文章就是为了讲解下Java的日志体系。
+
+我会尽可能的讲解清楚，如有问题，欢迎指正！！！
+
+
+
 # 日志体系讲解
 下图是SlF4j日志的体系图。
 
@@ -21,6 +30,12 @@
 纵向看，每个application都对应一种实现方式。接下来一一来说明下具体实现方式。
 
 [SLF4J官网文档地址](https://www.slf4j.org/)
+
+
+
+# 说明
+
+本文使用的sfl4j-api版本是2.0.6版本，JDK是17
 
 # 未绑定实现
 未绑定实现肯定是不能使用的，也就是说只有`slf4j-api`的接口定义，没有具体地实现。
@@ -62,8 +77,8 @@ package com.itlab1024.log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Main {
-    public static final Logger logger = LoggerFactory.getLogger(Main.class);
+public class com.itlab1024.log.Main {
+    public static final Logger logger = LoggerFactory.getLogger(com.itlab1024.log.Main.class);
     public static void main(String[] args) {
         logger.debug("debug");
         logger.info("info");
@@ -129,8 +144,8 @@ package com.itlab1024.log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Main {
-    public static final Logger logger = LoggerFactory.getLogger(Main.class);
+public class com.itlab1024.log.Main {
+    public static final Logger logger = LoggerFactory.getLogger(com.itlab1024.log.Main.class);
     public static void main(String[] args) {
         logger.debug("debug");
         logger.info("info");
@@ -178,9 +193,9 @@ logback支持使用xml的方式配置日志的相关信息，需要在classpath�
 
 可以看到，配置文件已经生效。
 
-# 绑定reload4j
+# 绑定reload4j（log4j 1.x升级版）
 
-`log4j`的`1.2`版本是一个通用版本，但是由于2022年的log4j漏洞原因，`slf4j-log4j`模块在`build`时，会自动重定向至`slf4j-reload4j`模块。也就是说如果想用`log4j`的话，就直接使用哦个`reload4j`吧。
+`log4j`的`1.x`版本是一个通用版本，但是由于2022年的log4j漏洞原因，`slf4j-log4j`模块在`build`时，会自动重定向至`slf4j-reload4j`模块。也就是说如果想用`log4j`的话，就直接使用哦个`reload4j`吧。
 
 示例项目：[slf4j-reload4j](slf4j-reload4j)
 
@@ -229,8 +244,8 @@ package com.itlab1024.log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Main {
-    public static final Logger logger = LoggerFactory.getLogger(Main.class);
+public class com.itlab1024.log.Main {
+    public static final Logger logger = LoggerFactory.getLogger(com.itlab1024.log.Main.class);
     public static void main(String[] args) {
         logger.debug("debug");
         logger.info("info");
@@ -313,8 +328,8 @@ package com.itlab1024.log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Main {
-    public static final Logger logger = LoggerFactory.getLogger(Main.class);
+public class com.itlab1024.log.Main {
+    public static final Logger logger = LoggerFactory.getLogger(com.itlab1024.log.Main.class);
     public static void main(String[] args) {
         logger.debug("debug");
         logger.info("info");
@@ -445,8 +460,8 @@ package com.itlab1024.log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Main {
-    public static final Logger logger = LoggerFactory.getLogger(Main.class);
+public class com.itlab1024.log.Main {
+    public static final Logger logger = LoggerFactory.getLogger(com.itlab1024.log.Main.class);
     public static void main(String[] args) {
         logger.debug("debug");
         logger.info("info");
@@ -480,3 +495,123 @@ org.slf4j.simpleLogger.showLogName=true
 ![image-20230113141549920](https://itlab1024-1256529903.cos.ap-beijing.myqcloud.com/202301131415002.png)
 
 可以看到debug级别的日志被打印了出来。
+
+# 绑定log4j2
+
+Apache Log4j 2 是对 Log4j 的升级，对其前身 Log4j 1.x 和 提供了 Logback 中可用的许多改进，同时修复了 Logback 架构中的一些固有问题。
+
+[Log4j – Apache Log4j 2](https://logging.apache.org/log4j/2.x/)
+
+## 依赖说明
+
+log4j也不是直接实现的`slf4j-api`，而是实现的`log4j-api`，如果搭配`slf4j-api`，则需要引入桥接jar`log4j-slf4j-impl`。当依赖下载的时候会自动下载
+
+`slf4j-api`。
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.itlab1024</groupId>
+    <artifactId>slf4j-log4j2</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.19.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.19.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.19.0</version>
+        </dependency>
+    </dependencies>
+</project>
+```
+
+上面引入了三个依赖，这三个是必须要引入的。看下最终下载的所有依赖。
+
+![image-20230113142930317](https://itlab1024-1256529903.cos.ap-beijing.myqcloud.com/202301131429413.png)
+
+## 测试类
+
+```java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class Main {
+    public static final Logger logger = LoggerFactory.getLogger(Main.class);
+    public static void main(String[] args) {
+        logger.debug("debug");
+        logger.info("info");
+        logger.warn("warn");
+        logger.error("error");
+    }
+}
+```
+
+## 运行结果
+
+![image-20230113143053539](https://itlab1024-1256529903.cos.ap-beijing.myqcloud.com/202301131430620.png)
+
+
+
+## 配置文件
+
+log4j2支持4中文件格式，`XML`, `JSON`, `YAML`, `Properties`。名称默认是log4j2
+
+比如我增加配置文件`log4j2.xml`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
+```
+
+再次执行程序查看结果：
+
+![image-20230113143624118](https://itlab1024-1256529903.cos.ap-beijing.myqcloud.com/202301131436192.png)
+
+因为我修改了日志级别，所以日志都打印出来了。
+
+
+
+---
+
+> 本篇文章主要是介绍几种日志框架的基本使用，并未深入讲解比如配置文件如何配置，如何修改默认配置等等内容。
+
+
+
+---
+
+
+
+> 博主信息
+
+* github: https://github.com/itlab1024
