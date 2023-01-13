@@ -224,6 +224,8 @@ logback支持使用xml的方式配置日志的相关信息，需要在classpath�
 ## 测试类
 
 ```java
+package com.itlab1024.log;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
