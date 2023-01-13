@@ -498,7 +498,9 @@ org.slf4j.simpleLogger.showLogName=true
 
 # 绑定log4j2
 
-Apache Log4j 2 是对 Log4j 的升级，对其前身 Log4j 1.x 和 提供了 Logback 中可用的许多改进，同时修复了 Logback 架构中的一些固有问题。
+`Apache Log4j 2` 是对 `Log4j `的升级，对其前身 `Log4j 1.x `和 提供了 `Logback` 中可用的许多改进，同时修复了 `Logback `架构中的一些固有问题。
+
+`log4j2`并未在上图中展示，但是并不是说起不能与`slf4j-api`融合，相反，官方已经给了解决方案。
 
 [Log4j – Apache Log4j 2](https://logging.apache.org/log4j/2.x/)
 

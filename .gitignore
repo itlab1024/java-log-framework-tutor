@@ -27,3 +27,4 @@ hs_err_pid*
 /sfl4j-jul/target/
 /slf4j-reload4j/target/
 /slf4j-simple/target/
+/slf4j-log4j2/target/
