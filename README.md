@@ -52,6 +52,7 @@
 ```
 只引入了`slf4j-api`!
 ## 测试类
+
 ```java
 package com.itlab1024.log;
 
@@ -73,3 +74,69 @@ public class Main {
 ![](https://itlab1024-1256529903.cos.ap-beijing.myqcloud.com/202301131123344.png)
 
 日志并没有正常输出，从红色文字提示可知道，没有提供Slf4j的实现框架（provider）。
+
+
+
+# 绑定logback实现
+
+通常使用logback只需要引入`logback-classic`即可，它内部的pom依赖了`sfl4j-api`和`logback-core`，会自动下载下来响应的依赖。
+
+## 依赖说明
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.itlab1024.log</groupId>
+    <artifactId>slf4j-logback-classic</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.4.5</version>
+        </dependency>
+    </dependencies>
+</project>
+```
+
+上面pom中我只依赖了`logback-classic`。通过idea工具可以看到该项目的所有依赖情况：
+
+![image-20230113114548311](https://itlab1024-1256529903.cos.ap-beijing.myqcloud.com/202301131145409.png)
+
+可以看到，自动下载了`logback-core:1.4.5`和`slf4j-api:2.0.4`，当然也可以手动引入这两个依赖（不同版本）。
+
+## 测试类
+
+```java
+package com.itlab1024.log;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class Main {
+    public static final Logger logger = LoggerFactory.getLogger(Main.class);
+    public static void main(String[] args) {
+        logger.debug("debug");
+        logger.info("info");
+        logger.warn("warn");
+        logger.trace("trace");
+        logger.error("error");
+    }
+}
+```
+
+## 运行结果
+
+![image-20230113114827808](https://itlab1024-1256529903.cos.ap-beijing.myqcloud.com/202301131148890.png)
+
+可以看到能够正常打印日志信息。
