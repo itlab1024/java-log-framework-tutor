@@ -24,3 +24,5 @@ hs_err_pid*
 /.idea/
 /slf4j-unbound/target/
 /slf4j-logback-classic/target/
+/sfl4j-jul/target/
+/slf4j-reload4j/target/
