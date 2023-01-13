@@ -19,4 +19,57 @@
 ![](https://itlab1024-1256529903.cos.ap-beijing.myqcloud.com/202301131113484.png)：没有原生实现`sfl4j-api`的日志框架，这些框架需要使用适配层与``sfl4j-api`接口适配。
 
 纵向看，每个application都对应一种实现方式。接下来一一来说明下具体实现方式。
+# 未绑定实现
+未绑定实现肯定是不能使用的，也就是说只有`slf4j-api`的接口定义，没有具体地实现。
 
+示例项目：[slf4j-unbound](slf4j-unbound)
+
+## 依赖说明
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.itlab1024.log</groupId>
+    <artifactId>slf4j-unbound</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.6</version>
+        </dependency>
+    </dependencies>
+</project>
+```
+只引入了`slf4j-api`!
+## 测试类
+```java
+package com.itlab1024.log;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class Main {
+    public static final Logger logger = LoggerFactory.getLogger(Main.class);
+    public static void main(String[] args) {
+        logger.debug("debug");
+        logger.info("info");
+        logger.warn("warn");
+        logger.trace("trace");
+        logger.error("error");
+    }
+}
+```
+## 运行结果
+![](https://itlab1024-1256529903.cos.ap-beijing.myqcloud.com/202301131123344.png)
+
+日志并没有正常输出，从红色文字提示可知道，没有提供Slf4j的实现框架（provider）。
